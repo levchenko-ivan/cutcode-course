@@ -49,7 +49,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345
     volumes:
-      - ./docker/MySQL:/home
+      - ./docker/MySQL:/var/lib/mysql
       - ./docker/dump:/docker-entrypoint-initdb.d
     ports:
       - ${LOCAL_MYSQL_PORT}:${APP_MYSQL_PORT}
