@@ -1,0 +1,4 @@
+2022/10/16 09:33:27 [error] 16#16: *1074 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/var/www/cutcode-shop.local/vendor/autoload.php): Failed to open stream: No such file or directory in /var/www/cutcode-shop.local/public/index.php on line 34PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/cutcode-shop.local/public/../vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/cutcode-shop.local/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /var/www/cutcode-shop.local/public/index.php on line 34" while reading response header from upstream, client: 172.29.0.1, server: localhost, request: "POST /telescope/telescope-api/exceptions?tag=&take=1&family_hash= HTTP/1.1", upstream: "fastcgi://172.29.0.4:9000", host: "localhost:900", referrer: "http://localhost:900/telescope/exceptions"

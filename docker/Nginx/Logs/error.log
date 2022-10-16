@@ -1,0 +1,4 @@
+2022/10/11 14:08:11 [emerg] 13#13: host not found in upstream "php-laravel-cms" in /etc/nginx/conf.d/default.conf:23
+2022/10/11 14:15:39 [emerg] 14#14: host not found in upstream "php-laravel-cms" in /etc/nginx/conf.d/default.conf:23
+2022/10/11 14:17:50 [emerg] 14#14: host not found in upstream "php-laravel-cms" in /etc/nginx/conf.d/default.conf:23
+2022/10/11 14:18:52 [emerg] 14#14: host not found in upstream "php-laravel-cms" in /etc/nginx/conf.d/default.conf:23

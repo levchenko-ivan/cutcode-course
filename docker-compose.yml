@@ -1,0 +1,72 @@
+version: '3.8'
+
+networks:
+ cutcode_shop:
+
+services:
+  nginx-cutcode-shop:
+    build: ./docker/NginxFile
+    container_name: nginx-cutcode-shop
+    ports:
+      - ${LOCAL_WEB_PORT}:${APP_WEB_PORT}
+    volumes:
+      - ./docker/Nginx/core:/etc/nginx/
+      - ${LOCAL_PATH_HOST}:/var/www/cutcode-shop.local
+      - ./docker/Nginx/Logs:/var/log/nginx/
+      - ./docker/Nginx/html:/usr/share/nginx/html/
+    links:
+      - php-cutcode-shop
+    depends_on:
+      - php-cutcode-shop
+      - redis-cutcode-shop
+      - db-cutcode-shop
+      - npm-cutcode-shop
+    networks:
+      - cutcode_shop
+
+  php-cutcode-shop:
+    build: ./docker/PHP8
+    container_name: php-cutcode-shop
+    volumes:
+      - ${LOCAL_PATH_HOST}:/var/www/cutcode-shop.local:cached
+    networks:
+      - cutcode_shop
+
+  redis-cutcode-shop:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    container_name: redis-cutcode-shop
+    ports:
+      - ${LOCAL_REDIS_PORT}:${APP_REDIS_PORT}
+    volumes:
+      - ./docker/Redis:/data
+    networks:
+      - cutcode_shop
+
+  db-cutcode-shop:
+    image: mariadb:latest
+    container_name: db-cutcode-shop
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+    volumes:
+      - ./docker/MySQL:/home
+      - ./docker/dump:/docker-entrypoint-initdb.d
+    ports:
+      - ${LOCAL_MYSQL_PORT}:${APP_MYSQL_PORT}
+    mem_limit: 2g
+    networks:
+      - cutcode_shop
+
+  npm-cutcode-shop:
+    image: node:alpine
+    container_name: npm
+    volumes:
+      - ${LOCAL_PATH_HOST}:/var/www/cutcode-shop.local:cached
+      - ${LOCAL_PATH_HOST}.env:/var/www/cutcode-shop.local/.env
+    working_dir: /var/www/cutcode-shop.local
+    profiles: ["npm"]
+    entrypoint: ['npm']
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    networks:
+      - cutcode_shop
