@@ -28,13 +28,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if(!app()->isProduction()) {
+            if(empty($_COOKIE['XDEBUG_SESSION'])) {
+                setcookie('XDEBUG_SESSION', 'start');
+            }
+        }
+
         Model::preventLazyLoading(!app()->isProduction());
         Model::preventSilentlyDiscardingAttributes(!app()->isProduction());
 
         DB::whenQueryingForLongerThan(500, function (Connection $connection) {
-//            logger()
-//                ->channel('telegram')
-//                ->debug('whenQueryingForLongerThan: '. $connection->query()->toSql());
+            logger()
+                ->channel('telegram')
+                ->debug('whenQueryingForLongerThan: '. $connection->query()->toSql());
         });
 
         $kernel = app(Kernel::class);
@@ -42,9 +48,9 @@ class AppServiceProvider extends ServiceProvider
         $kernel->whenRequestLifecycleIsLongerThan(
             CarbonInterval::second(5),
             function () {
-//                logger()
-//                    ->channel('telegram')
-//                    ->debug('whenQueryingForLongerThan: '. request()->url());
+                logger()
+                    ->channel('telegram')
+                    ->debug('whenQueryingForLongerThan: '. request()->url());
             }
         );
     }

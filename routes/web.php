@@ -1,6 +1,5 @@
 <?php
 
-use App\Services\Telegram\TelegramApiException;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    logger()
-        ->channel('telegram')
-        ->debug('Hello World');
     return view('welcome');
 });

@@ -39,11 +39,8 @@ RUN pecl install -o -f redis \
 &&  rm -rf /tmp/pear \
 &&  docker-php-ext-enable redis
 
-#Установка node
-RUN curl -sL https://deb.nodesource.com/setup_current.x | bash -
-RUN apt-get update -y && apt-get install -y \
-    nodejs
-RUN npm install npm@latest -g
+#Install xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 #Настройка проекта
 ADD php.ini /usr/local/etc/php/conf.d/40-fcustom.ini
