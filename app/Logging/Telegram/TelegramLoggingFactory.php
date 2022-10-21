@@ -2,7 +2,6 @@
 
 namespace App\Logging\Telegram;
 
-use App\Services\Telegram\TelegramApiException;
 use Monolog\Logger;
 
 class TelegramLoggingFactory

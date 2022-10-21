@@ -2,6 +2,7 @@
 
 namespace App\Services\Telegram;
 
+use App\Services\Telegram\Exceptions\TelegramApiException;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -17,22 +18,13 @@ final class TelegramBotApi
             $request = Http::get(self::HOST.$token. '/sendMessage' , [
                 'chat_id' => $chatId,
                 'text' => $text
-            ]);
+            ])->throw()->json();
 
-            $body = $request->body();
+            return $request['ok'];
+        } catch (\Throwable $e) {
 
-            $body = json_decode($body, true);
+            report(new TelegramApiException($e->getMessage()));
 
-            if(json_last_error() !== JSON_ERROR_NONE) {
-                throw new TelegramApiException(__('Invalid json data from request'));
-            }
-
-            if(empty($body['ok'])) {
-                throw new TelegramApiException(__('Error request data'));
-            }
-
-            return $body['ok'];
-        } catch (TelegramApiException $e) {
             return false;
         }
     }
