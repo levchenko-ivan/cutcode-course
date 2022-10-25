@@ -18,6 +18,8 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="mt-8 dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <p>Home 1</p>
+
+                    <img src="/storage/images/products/51cbc69a-8730-30af-a645-780ef138ee6e.jpg" width="200" height="200">
                 </div>
 
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
