@@ -12,8 +12,6 @@ class ImageFaker extends Base
 
     private string $storageIamgePath = 'app/public/images/';
 
-    private bool $isValidateDir = false;
-
     public function copyImages(string $path): string
     {
         $this->createDirectories($path);
@@ -27,26 +25,8 @@ class ImageFaker extends Base
 
     private function createDirectories(string $path): void
     {
-        if($this->isValidateDir) {
-            return;
-        }
-        $this->isValidateDir = true;
-
-        $isCreateMainDir = false;
-        $isCreateSubDir = false;
-
-        if(!Storage::directoryExists('images')) {
-            Storage::makeDirectory('images');
-            $isCreateMainDir = true;
-        }
-
         if(!Storage::directoryExists('images/'.$path)) {
             Storage::makeDirectory('images/'.$path);
-            $isCreateSubDir = true;
-        }
-
-        if(!($isCreateMainDir || $isCreateSubDir)) {
-            File::cleanDirectory(Storage::path('images/'.$path));
         }
     }
 

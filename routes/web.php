@@ -3,26 +3,18 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 
 Route::controller(AuthController::class)->group(function (){
     Route::get('/login', 'index')->name('login');
-    Route::post('/login', 'signIn')->name('signIn');
+    Route::post('/login', 'signIn')
+        ->middleware('throttle:auth')
+        ->name('signIn');
 
     Route::get('/sign-up', 'signUp')->name('signUp');
-    Route::post('/sign-up', 'store')->name('store');
+    Route::post('/sign-up', 'store')
+        ->middleware('throttle:auth')
+        ->name('store');
 
     Route::delete('/logout', 'logOut')->name('logOut');
 
