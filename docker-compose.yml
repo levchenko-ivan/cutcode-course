@@ -59,7 +59,7 @@ services:
 
   npm-cutcode-shop:
     image: node:alpine
-    container_name: npm
+    container_name: npm-cutcode-shop
     volumes:
       - ${LOCAL_PATH_HOST}:/var/www/cutcode-shop.local:cached
       - ${LOCAL_PATH_HOST}.env:/var/www/cutcode-shop.local/.env

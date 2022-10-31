@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Fakers\ImageFaker;
 use App\Http\Kernel;
 use Carbon\CarbonInterval;
 use Faker\Factory;
@@ -10,6 +9,7 @@ use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Support\Testing\ImageFaker;
 
 class AppServiceProvider extends ServiceProvider
 {

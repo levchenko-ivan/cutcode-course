@@ -6,7 +6,7 @@
     <x-forms.auth-forms
         title="Забыли пароль"
         method="POST"
-        action="{{ route('password.email') }}"
+        action="{{ route('forgot.handle') }}"
     >
 
         <x-forms.email-input/>

@@ -1,9 +1,9 @@
 <?php
 
-use App\Logging\Telegram\TelegramLoggingFactory;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+use Support\Logging\Telegram\TelegramLoggingFactory;
 
 return [
 

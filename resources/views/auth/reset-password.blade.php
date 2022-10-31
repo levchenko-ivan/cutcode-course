@@ -6,7 +6,7 @@
     <x-forms.auth-forms
         title="Восстановление пароля"
         method="POST"
-        action="{{ route('password.update') }}"
+        action="{{ route('password-reset.handle') }}"
     >
         <input type="hidden" name="token" value="{{ $token }}"/>
 
