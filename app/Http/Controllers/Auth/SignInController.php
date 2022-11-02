@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignInFormRequest;
+use Domain\Auth\Actions\LogOutAction;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -29,13 +30,9 @@ class SignInController extends Controller
         return redirect()->intended(route('home'));
     }
 
-    public function logOut(): RedirectResponse
+    public function logOut(LogOutAction $action): RedirectResponse
     {
-        auth()->logout();
-
-        request()->session()->invalidate();
-
-        request()->session()->regenerateToken();
+        $action();
 
         return redirect()->route('home');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Domain\Auth\Actions\SocialiteAuthAction;
 use Domain\Auth\Models\User;
 use DomainException;
 use Illuminate\Contracts\Foundation\Application;
@@ -23,21 +24,9 @@ class SocialAuthController extends Controller
         }
     }
 
-    public function callback(string $driver): Redirector|Application|RedirectResponse
+    public function callback(string $driver, SocialiteAuthAction $action): Redirector|Application|RedirectResponse
     {
-        if($driver !== 'github') {
-            throw new DomainException('Драйвер не поддерживается');
-        }
-
-        $githubUser = Socialite::driver($driver)->user();
-
-        $user = User::query()->updateOrCreate([
-            $driver.'_id' => $githubUser->id,
-        ], [
-            'name' => $githubUser->name ?? 'GitHubUser_'.$githubUser->id,
-            'email' => $githubUser->email,
-            'password' => bcrypt(str()->random(20))
-        ]);
+        $user = $action($driver);
 
         auth()->login($user);
 
