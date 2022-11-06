@@ -39,7 +39,7 @@ final class TelegramLoggingHandler extends AbstractProcessingHandler
             $message .= "\nFile: {$exception->getFile()}: {$exception->getLine()}";
         }
 
-        $message .= "\nUser: ". userIp();
+        $message .= "\nUser: ". userIdIp();
 
         TelegramBotApi::sendMessage($this->token, $this->chatId, $message);
     }

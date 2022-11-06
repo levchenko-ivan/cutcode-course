@@ -9,8 +9,8 @@ if(!function_exists('flash')) {
     }
 }
 
-if(!function_exists('userIp')) {
-    function userIp(): string
+if(!function_exists('userIdIp')) {
+    function userIdIp(): string
     {
         try {
             return request()->user()?->id ?? request()->ip();
