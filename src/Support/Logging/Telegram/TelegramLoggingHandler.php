@@ -26,7 +26,7 @@ final class TelegramLoggingHandler extends AbstractProcessingHandler
 
     protected function write(array $record): void
     {
-        $message = "Error: ".$record['message'];
+        $message = $record['formatted'];
 
         if(
             isset($record['context']['exception'])
@@ -36,6 +36,8 @@ final class TelegramLoggingHandler extends AbstractProcessingHandler
              * @var $exception Throwable
              */
             $exception = $record['context']['exception'];
+
+            $message = "Error: ".$record['message'];
             $message .= "\nFile: {$exception->getFile()}: {$exception->getLine()}";
         }
 
