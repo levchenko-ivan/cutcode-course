@@ -1,5 +1,11 @@
 @extends('layouts.auth')
 
+@php
+    /**
+    * @see \App\Http\Controllers\Auth\SignUpController::page()
+    */
+@endphp
+
 @section('title', __("Регистрация"))
 
 @section('content')

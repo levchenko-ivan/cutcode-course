@@ -1,5 +1,11 @@
 @extends('layouts.auth')
 
+@php
+    /**
+    * @see \App\Http\Controllers\Auth\ResetPasswordController::page()
+    */
+@endphp
+
 @section('title', __("Восстановление пароля"))
 
 @section('content')

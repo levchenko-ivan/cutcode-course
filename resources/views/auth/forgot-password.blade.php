@@ -1,5 +1,11 @@
 @extends('layouts.auth')
 
+@php
+    /**
+    * @see \App\Http\Controllers\Auth\ForgotPasswordController::page()
+    */
+@endphp
+
 @section('title', __("Забыли пароль"))
 
 @section('content')
