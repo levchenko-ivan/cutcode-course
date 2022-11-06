@@ -5,6 +5,7 @@ namespace Support\Logging\Telegram;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Services\Telegram\TelegramBotApi;
+use Throwable;
 
 final class TelegramLoggingHandler extends AbstractProcessingHandler
 {
@@ -25,6 +26,21 @@ final class TelegramLoggingHandler extends AbstractProcessingHandler
 
     protected function write(array $record): void
     {
-        TelegramBotApi::sendMessage($this->token, $this->chatId, $record['message']);
+        $message = "Error: ".$record['message'];
+
+        if(
+            isset($record['context']['exception'])
+            && $record['context']['exception'] instanceof Throwable
+        ) {
+            /**
+             * @var $exception Throwable
+             */
+            $exception = $record['context']['exception'];
+            $message .= "\nFile: {$exception->getFile()}: {$exception->getLine()}";
+        }
+
+        $message .= "\nUser: ". userIp();
+
+        TelegramBotApi::sendMessage($this->token, $this->chatId, $message);
     }
 }
