@@ -28,7 +28,7 @@
                     <div x-data="{dropdownProfile: false}" class="profile relative">
                         <button @click="dropdownProfile = ! dropdownProfile" class="flex items-center text-white hover:text-pink transition">
                             <span class="sr-only">Профиль</span>
-                            <img src="{{ auth()->user()->avatar }}" class="shrink-0 w-7 md:w-9 h-7 md:h-9 rounded-full" alt="Данил Шуцкий">
+                            <img src="{{ auth()->user()->avatar }}" class="shrink-0 w-7 md:w-9 h-7 md:h-9 rounded-full" alt="{{ auth()->user()->name }}">
                             <span class="hidden md:block ml-2 font-medium">{{ auth()->user()->name }}</span>
                             <svg class="shrink-0 w-3 h-3 ml-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 30 16">
                                 <path fill-rule="evenodd" d="M27.536.72a2 2 0 0 1-.256 2.816l-12 10a2 2 0 0 1-2.56 0l-12-10A2 2 0 1 1 3.28.464L14 9.397 24.72.464a2 2 0 0 1 2.816.256Z" clip-rule="evenodd"/>
@@ -47,8 +47,8 @@
                         >
                             <h5 class="text-body text-xs">Мой профиль</h5>
                             <div class="flex items-center mt-3">
-                                <img src="{{ auth()->user()->avatar }}" class="w-11 h-11 rounded-full" alt="Данил Шуцкий">
-                                <span class="ml-3 text-xs md:text-sm font-bold">Данил Шуцкий</span>
+                                <img src="{{ auth()->user()->avatar }}" class="w-11 h-11 rounded-full" alt="{{ auth()->user()->name }}">
+                                <span class="ml-3 text-xs md:text-sm font-bold">{{ auth()->user()->name }}</span>
                             </div>
                             <div class="mt-4">
                                 <ul class="space-y-2">
