@@ -10,7 +10,7 @@ use Services\Telegram\Exceptions\TelegramApiException;
 use Support\Flash\Flash;
 use Tests\TestCase;
 
-class SocialAuthControllerTest extends TestCase
+class  SocialAuthControllerTest extends TestCase
 {
     public function test_redirect(): void
     {
@@ -41,11 +41,16 @@ class SocialAuthControllerTest extends TestCase
 
     public function test_fail_driver_redirect(): void
     {
+        $this->expectException(DomainException::class);
+
         $response = $this
             ->from(route('login'))
+            ->withoutExceptionHandling()
             ->get(action([SocialAuthController::class, 'redirects'], ['driver' => 'errorDriver']))
             ->assertRedirect(route('login'));
+
         $response->assertSessionHas(Flash::MESSAGE_KEY, 'Произошла ошибка или драйвер не поддерживается: errorDriver');
+
     }
 
     public function test_fail_driver_callback(): void
