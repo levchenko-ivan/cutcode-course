@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpFormRequest;
 use Domain\Auth\Actions\RegisterNewUserAction;
 use Domain\Auth\Contracts\RegisterNewUserContract;
+use Domain\Auth\DTOs\NewUserDTO;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,17 +24,10 @@ class SignUpController extends Controller
         RegisterNewUserContract $action
     ): RedirectResponse
     {
-        //TODO make DTO
-        $data = $request->validated();
-
         /**
          * @var $action RegisterNewUserAction
          */
-        $action(
-            $data['name'],
-            $data['email'],
-            $data['password']
-        );
+        $action(NewUserDTO::fromRequest($request));
 
         $request->session()->regenerate();
 
