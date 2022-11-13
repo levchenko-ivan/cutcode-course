@@ -1,10 +1,11 @@
 <?php
 
-namespace Domain\Auth\Providers;
+namespace Domain\Catalog\Providers;
+
 
 use Illuminate\Support\ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+class CatalogServiceProvider extends ServiceProvider
 {
     public function boot()
     {
