@@ -4,8 +4,9 @@ namespace App\Menu;
 
 use Illuminate\Support\Collection;
 use Support\Traits\Makeable;
+use Traversable;
 
-class Menu
+class Menu implements \IteratorAggregate, \Countable
 {
     use Makeable;
 
@@ -51,5 +52,15 @@ class Menu
             ->toArray();
 
         return $this;
+    }
+
+    public function getIterator(): Traversable
+    {
+        return $this->all();
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 }
