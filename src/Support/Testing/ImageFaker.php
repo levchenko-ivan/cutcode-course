@@ -9,24 +9,18 @@ class ImageFaker extends Base
 {
     private string $fakeImagePath = 'tests/Fixtures/images/';
 
-    private string $storageIamgePath = 'app/public/images/';
-
     public function copyImages(string $path): string
     {
-        $this->createDirectories($path);
+        $storage = Storage::disk('images');
+
+        if(!$storage->exists($path)) {
+            $storage->makeDirectory($path);
+        }
 
         return '/storage/images/'.$path.'/'.$this->generator->file(
             base_path($this->fakeImagePath.$path),
-            storage_path($this->storageIamgePath.$path),
+            $storage->path($path),
             false
         );
     }
-
-    private function createDirectories(string $path): void
-    {
-        if(!Storage::directoryExists('images/'.$path)) {
-            Storage::makeDirectory('images/'.$path);
-        }
-    }
-
 }

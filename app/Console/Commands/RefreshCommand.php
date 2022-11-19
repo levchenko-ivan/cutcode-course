@@ -18,10 +18,13 @@ class RefreshCommand extends Command
             return self::FAILURE;
         }
 
+        $this->call('cache:clear');
+
         $cleanDirectories = [
             'images/brands',
             'images/products'
         ];
+
         foreach ($cleanDirectories as $cleanDirectory) {
             if(Storage::directoryExists($cleanDirectory)) {
                File::cleanDirectory(Storage::path($cleanDirectory));

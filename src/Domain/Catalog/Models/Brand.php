@@ -4,6 +4,7 @@ namespace Domain\Catalog\Models;
 
 use App\Models\Product;
 use Database\Factories\BrandFactory;
+use Domain\Catalog\Collections\BrandCollection;
 use Domain\Catalog\QueryBuilders\BrandQueryBuilder;
 use Domain\Catalog\QueryBuilders\CategoryQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,6 +41,11 @@ class Brand extends Model
     public function newEloquentBuilder($query): BrandQueryBuilder
     {
         return new BrandQueryBuilder($query);
+    }
+
+    public function newCollection(array $models = []): BrandCollection
+    {
+        return new BrandCollection($models);
     }
 
     public function products(): HasMany
