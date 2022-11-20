@@ -197,7 +197,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        DomainServiceProvider::class
+        DomainServiceProvider::class,
+        \App\Providers\CatalogServiceProvider::class
 
     ],
 
