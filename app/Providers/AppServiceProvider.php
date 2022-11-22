@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 //        }
 
         DB::listen(function ($query) {
-            if($query->time > 100) {
+            if($query->time > 5000) {
                 logger()
                     ->channel('telegram')
                     ->debug('LongQuery: '. $query->sql, $query->bindings);
