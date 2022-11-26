@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Tests\Feature\App\Http\Controllers;
 
+use App\Http\Controllers\HomeController;
 use Database\Factories\BrandFactory;
 use Database\Factories\CategoryFactory;
 use Database\Factories\ProductFactory;
