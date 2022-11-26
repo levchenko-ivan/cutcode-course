@@ -13,8 +13,6 @@ class ProductController extends Controller
     {
         $product->load(['optionValues.option']);
 
-        dump($product->toArray());
-
         $options = $product->optionValues->mapToGroups(function ($item) {
             return [$item->option->title => $item];
         });
