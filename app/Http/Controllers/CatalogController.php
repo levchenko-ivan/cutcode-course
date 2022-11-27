@@ -25,16 +25,16 @@ class CatalogController extends Controller
             ->get();
 
         $products = Product::query()
-            ->select(['id', 'title', 'slug', 'price', 'thumbnail', 'json_properties'])
-            ->when(request('s'), function (Builder $query) use ($category) {
-                $query->whereFullText(['title', 'text'], request('s'));
-            })
-            ->when($category->exists, function (Builder $query) use ($category) {
-                $query->whereRelation('categories', 'categories.id', '=', $category->id);
-            })
-            ->filtered()
-            ->sorted()
-            ->paginate(6);
+            ->select([
+                'id',
+                'title',
+                'slug',
+                'price',
+                'thumbnail',
+                'json_properties'
+            ])
+            ->search()
+            ->withCategory($category);
 
         return view('catalog.catalog-page', compact('brands', 'categories', 'products', 'category'));
     }
