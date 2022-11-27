@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Product;
+use Domain\Product\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;

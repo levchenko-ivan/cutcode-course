@@ -2,13 +2,13 @@
 namespace Tests\Feature\App\Http\Controllers;
 
 use App\Http\Controllers\CatalogController;
-use App\Models\Product;
 use Database\Factories\BrandFactory;
 use Database\Factories\CategoryFactory;
 use Database\Factories\OptionFactory;
 use Database\Factories\OptionValueFactory;
+use Database\Factories\ProductFactory;
 use Database\Factories\PropertyFactory;
-
+use Domain\Product\Models\Product;
 use Tests\TestCase;
 
 class CatalogControllerTest extends TestCase
@@ -25,7 +25,8 @@ class CatalogControllerTest extends TestCase
 
         $catalog = CategoryFactory::new()->count(2)
             ->has(
-                Product::factory(2)
+                ProductFactory::new()
+                    ->count(2)
                     ->hasAttached($optionValues)
                     ->hasAttached($properties, function () {
                         return ['value' => ucfirst(fake()->word())];
