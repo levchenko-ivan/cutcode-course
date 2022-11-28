@@ -40,9 +40,6 @@ class ProductQueryBuilder extends Builder
     {
         return $this->when($category->exists, function (Builder $query) use ($category) {
             $query->whereRelation('categories', 'categories.id', '=', $category->id);
-        })
-            ->filtered()
-            ->sorted()
-            ->paginate(6);
+        });
     }
 }
