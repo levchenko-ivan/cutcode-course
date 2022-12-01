@@ -5,6 +5,7 @@ namespace Domain\Auth\Actions;
 use Domain\Auth\Models\User;
 use DomainException;
 use Laravel\Socialite\Facades\Socialite;
+use Support\SessionRegenerator;
 
 class SocialiteAuthAction
 {
@@ -12,7 +13,7 @@ class SocialiteAuthAction
         'github'
     ];
 
-    public function __invoke(string $driver): User
+    public function __invoke(string $driver): void
     {
 
         if(!in_array($driver, $this->drivers)) {
@@ -21,12 +22,14 @@ class SocialiteAuthAction
 
         $socialiteUser = Socialite::driver($driver)->user();
 
-        return User::query()->updateOrCreate([
+        $user = User::query()->updateOrCreate([
             $driver.'_id' => $socialiteUser->getId(),
         ], [
             'name' => $socialiteUser->getName() ?? 'GitHubUser_'.$socialiteUser->getId(),
             'email' => $socialiteUser->getEmail(),
             'password' => bcrypt(str()->random(20))
         ]);
+
+        SessionRegenerator::run(fn() => auth()->login($user));
     }
 }

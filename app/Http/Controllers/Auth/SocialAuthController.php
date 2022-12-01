@@ -26,9 +26,7 @@ class SocialAuthController extends Controller
 
     public function callback(string $driver, SocialiteAuthAction $action): Redirector|Application|RedirectResponse
     {
-        $user = $action($driver);
-
-        auth()->login($user);
+        $action($driver);
 
         return redirect()
             ->intended(route('home'));

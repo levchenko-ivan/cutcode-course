@@ -8,6 +8,7 @@ use Domain\Cart\Models\Cart;
 use Domain\Cart\Models\CartItem;
 use Domain\Product\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Support\ValueObjects\Price;
@@ -52,7 +53,14 @@ class CartManager
         return implode(';', $optionValues);
     }
 
-    public function add(Product $product, int $quantity = 1, array $optionValues = [])
+    public function updateStorageId(string $old, string $current): void
+    {
+        Cart::query()
+            ->where('storage_id', $old)
+            ->update($this->storageData($current));
+    }
+
+    public function add(Product $product, int $quantity = 1, array $optionValues = []): Model|Builder
     {
         $cart = Cart::query()
             ->updateOrCreate([
