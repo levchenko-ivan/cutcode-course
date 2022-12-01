@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Cart\Models\Cart;
 use Domain\Cart\Models\CartItem;
 use Domain\Product\Models\OptionValue;
 use Domain\Product\Models\Product;
@@ -14,12 +15,12 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId(Cart::class)
+            $table->foreignIdFor(Cart::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId(Product::class)
+            $table->foreignIdFor(Product::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
@@ -35,12 +36,12 @@ return new class extends Migration
         });
 
         Schema::create('cart_item_option_value', function (Blueprint $table) {
-            $table->foreignId(CartItem::class)
+            $table->foreignIdFor(CartItem::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId(OptionValue::class)
+            $table->foreignIdFor(OptionValue::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

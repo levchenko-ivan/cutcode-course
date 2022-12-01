@@ -18,8 +18,8 @@ class CartRegistrar implements RouteRegistrar
                     Route::get('/', 'index')->name('cart');
                     Route::post('/{product}/add', 'add')->name('cart.add');
                     Route::post('/{item}/quantity', 'quantity')->name('cart.quantity');
-                    Route::post('/{item}/delete', 'delete')->name('cart.delete');
-                    Route::post('/truncate', 'truncate')->name('cart.truncate');
+                    Route::delete('/{item}/delete', 'delete')->name('cart.delete');
+                    Route::delete('/truncate', 'truncate')->name('cart.truncate');
                 });
         });
     }

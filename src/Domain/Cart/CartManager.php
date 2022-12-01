@@ -5,7 +5,12 @@ namespace Domain\Cart;
 use DB;
 use Domain\Cart\Contracts\CartIdentityStorageContract;
 use Domain\Cart\Models\Cart;
+use Domain\Cart\Models\CartItem;
 use Domain\Product\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Support\ValueObjects\Price;
 
 class CartManager
 {
@@ -13,6 +18,18 @@ class CartManager
         protected CartIdentityStorageContract $identityStorage
     )
     {
+    }
+
+    private function cacheKey(): string
+    {
+        return str('cart_' . $this->identityStorage->get())
+            ->slug('_')
+            ->value();
+    }
+
+    private function forgetCache()
+    {
+        Cache::forget($this->cacheKey());
     }
 
     private function storageData(string $id): array
@@ -28,7 +45,7 @@ class CartManager
         return $data;
     }
 
-    private function stringedOptionValues(array $optionValues)
+    private function stringedOptionValues(array $optionValues): string
     {
         sort($optionValues);
 
@@ -54,7 +71,74 @@ class CartManager
 
         $cartItem->optionValues()->sync($optionValues);
 
+        $this->forgetCache();
+
         return $cart;
     }
 
+    public function quantity(CartItem $item, int $quantity = 1): void
+    {
+        $item->update([
+            'quantity' => $quantity
+        ]);
+
+        $this->forgetCache();
+    }
+
+    public function delete(CartItem $item): void
+    {
+        $item->delete();
+
+        $this->forgetCache();
+    }
+
+    public function truncate(): void
+    {
+        $this->get()?->delete();
+
+        $this->forgetCache();
+    }
+
+    public function cartItems(): Collection
+    {
+        return $this->get()?->cartItems ?? collect([]);
+    }
+
+    public function items(): Collection
+    {
+        if(!$this->get()) {
+            return collect([]);
+        }
+
+        return CartItem::query()
+            ->with(['product', 'optionValues.option'])
+            ->whereBelongsTo($this->get())
+            ->get();
+    }
+
+    public function count(): int
+    {
+        return $this->cartItems()->sum(function ($item) {
+            return $item->quantity;
+        });
+    }
+
+    public function amount(): Price
+    {
+        return Price::make(
+            $this->cartItems()->sum(function ($item) {
+                return $item->amount->raw();
+            })
+        );
+    }
+
+    public function get()
+    {
+        return Cache::remember($this->cacheKey(), now()->addHour(), function () {
+            return Cart::query()
+                ->where('storage_id', $this->identityStorage->get())
+                ->when(auth()->check(), fn(Builder $query) => $query->orWhere('user_id' , auth()->id()))
+                ->first() ?? false;
+        });
+    }
 }
