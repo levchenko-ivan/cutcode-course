@@ -2,8 +2,11 @@
 
 namespace Domain\Order\States;
 
+use Domain\Order\Enums\OrderStatuses;
+
 class NewOrderState extends OrderState
 {
+    use StatusStateType;
 
     protected array $allowedTransition = [
         PendingOrderState::class,
@@ -15,13 +18,8 @@ class NewOrderState extends OrderState
         return true;
     }
 
-    public function value(): string
+    public function getType(): OrderStatuses
     {
-        return 'new';
-    }
-
-    public function humanValue(): string
-    {
-        return 'Новый заказ';
+        return OrderStatuses::New;
     }
 }

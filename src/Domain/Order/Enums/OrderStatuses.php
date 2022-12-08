@@ -24,4 +24,14 @@ enum OrderStatuses: string
             self::Cancelled => new CancelledOrderState($order),
         };
     }
+
+    public function humanValue(): string
+    {
+        return match ($this) {
+            self::New => 'Новый',
+            self::Pending => 'В обработке',
+            self::Paid => 'Оплачено',
+            self::Cancelled => 'Отменен',
+        };
+    }
 }

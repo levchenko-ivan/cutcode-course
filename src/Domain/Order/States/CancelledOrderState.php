@@ -2,21 +2,19 @@
 
 namespace Domain\Order\States;
 
+use Domain\Order\Enums\OrderStatuses;
+
 class CancelledOrderState extends OrderState
 {
+    use StatusStateType;
+
     public function canBeChanged(): bool
     {
         return false;
     }
 
-    //Todo
-    public function value(): string
+    public function getType(): OrderStatuses
     {
-        return 'cancelled';
-    }
-
-    public function humanValue(): string
-    {
-        return 'Отменен';
+        return OrderStatuses::Cancelled;
     }
 }

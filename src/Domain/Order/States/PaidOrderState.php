@@ -2,8 +2,12 @@
 
 namespace Domain\Order\States;
 
+use Domain\Order\Enums\OrderStatuses;
+
 class PaidOrderState extends OrderState
 {
+    use StatusStateType;
+
     protected array $allowedTransition = [
         CancelledOrderState::class
     ];
@@ -13,14 +17,8 @@ class PaidOrderState extends OrderState
         return true;
     }
 
-    //Todo
-    public function value(): string
+    public function getType(): OrderStatuses
     {
-        return 'paid';
-    }
-
-    public function humanValue(): string
-    {
-        return 'Оплачено';
+        return OrderStatuses::Paid;
     }
 }

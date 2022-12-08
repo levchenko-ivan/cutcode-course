@@ -2,8 +2,12 @@
 
 namespace Domain\Order\States;
 
+use Domain\Order\Enums\OrderStatuses;
+
 class PendingOrderState extends OrderState
 {
+    use StatusStateType;
+
     protected array $allowedTransition = [
         PaidOrderState::class,
         CancelledOrderState::class
@@ -14,14 +18,8 @@ class PendingOrderState extends OrderState
         return true;
     }
 
-    //Todo
-    public function value(): string
+    public function getType(): OrderStatuses
     {
-        return 'pending';
-    }
-
-    public function humanValue(): string
-    {
-        return 'В обработке';
+        return OrderStatuses::Pending;
     }
 }
