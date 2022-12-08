@@ -2,7 +2,9 @@
 
 namespace Domain\Order\Providers;
 
-class ActionServiceProvider
+use Barryvdh\Debugbar\ServiceProvider;
+
+class ActionServiceProvider extends ServiceProvider
 {
     public array $bindings = [
     ];
