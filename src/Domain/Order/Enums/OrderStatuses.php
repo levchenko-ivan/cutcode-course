@@ -2,6 +2,7 @@
 
 namespace Domain\Order\Enums;
 
+use Domain\Order\Models\Order;
 use Domain\Order\States\CancelledOrderState;
 use Domain\Order\States\NewOrderState;
 use Domain\Order\States\OrderState;
