@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Order\States;
+namespace Domain\Order\States\OrderStatus;
 
 use Domain\Order\Events\OrderStatusChanged;
 use Domain\Order\Models\Order;

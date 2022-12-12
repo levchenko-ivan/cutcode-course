@@ -1,14 +1,15 @@
 <?php
 
-namespace Domain\Order\States;
+namespace Domain\Order\States\OrderStatus;
 
 use Domain\Order\Enums\OrderStatuses;
 
-class PaidOrderState extends OrderState
+class NewOrderState extends OrderState
 {
     use StatusStateType;
 
     protected array $allowedTransition = [
+        PendingOrderState::class,
         CancelledOrderState::class
     ];
 
@@ -19,6 +20,6 @@ class PaidOrderState extends OrderState
 
     public function getType(): OrderStatuses
     {
-        return OrderStatuses::Paid;
+        return OrderStatuses::New;
     }
 }

@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use Domain\Catalog\ViewModels\BrandViewModel;
 use Domain\Catalog\ViewModels\CategoryViewModel;
-use Domain\Order\Enums\OrderStatuses;
-use Domain\Order\Models\Order;
-use Domain\Order\States\NewOrderState;
-use Domain\Order\States\OrderState;
 use Domain\Product\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

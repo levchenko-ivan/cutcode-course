@@ -4,7 +4,7 @@ namespace Domain\Order\Processes;
 
 use Domain\Order\Contracts\OrderProcessContract;
 use Domain\Order\Models\Order;
-use Domain\Order\States\PendingOrderState;
+use Domain\Order\States\OrderStatus\PendingOrderState;
 
 class ChangeStateToPending implements OrderProcessContract
 {

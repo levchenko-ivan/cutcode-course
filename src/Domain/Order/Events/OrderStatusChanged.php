@@ -3,7 +3,7 @@
 namespace Domain\Order\Events;
 
 use Domain\Order\Models\Order;
-use Domain\Order\States\OrderState;
+use Domain\Order\States\OrderStatus\OrderState;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

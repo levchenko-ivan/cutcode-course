@@ -3,11 +3,11 @@
 namespace Domain\Order\Enums;
 
 use Domain\Order\Models\Order;
-use Domain\Order\States\CancelledOrderState;
-use Domain\Order\States\NewOrderState;
-use Domain\Order\States\OrderState;
-use Domain\Order\States\PaidOrderState;
-use Domain\Order\States\PendingOrderState;
+use Domain\Order\States\OrderStatus\CancelledOrderState;
+use Domain\Order\States\OrderStatus\NewOrderState;
+use Domain\Order\States\OrderStatus\OrderState;
+use Domain\Order\States\OrderStatus\PaidOrderState;
+use Domain\Order\States\OrderStatus\PendingOrderState;
 
 enum OrderStatuses: string
 {
