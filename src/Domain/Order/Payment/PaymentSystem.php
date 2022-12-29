@@ -2,6 +2,7 @@
 
 namespace Domain\Order\Payment;
 
+use Closure;
 use Domain\Order\Contracts\PaymentGatewayContract;
 use Domain\Order\Exceptions\PaymentProviderException;
 use Domain\Order\Models\Payment;
